@@ -2,9 +2,9 @@
 
 public class OrderItemReadDTO
 {
-    public int Id { get; set; }
-    public int OrderId { get; set; }
-    public int ItemId { get; set; }
+    public long OrderItemId { get; set; }
+    public long OrderId { get; set; }
+    public string ItemCode { get; set; }
     public string Description { get; set; }
     public string Note { get; set; }
     public int Quantity { get; set; }

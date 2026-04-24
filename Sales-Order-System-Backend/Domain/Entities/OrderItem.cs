@@ -5,11 +5,10 @@ namespace Sales_Order_System_Backend.Domain.Entities;
 public class OrderItem
 {
     [Key]
-    public int Id { get; set; }
+    public long OrderItemId { get; set; }
+    public long OrderId { get; set; }
     [Required]
-    public int OrderId { get; set; }
-    [Required]
-    public int ItemId { get; set; }
+    public string ItemCode { get; set; }
     public string Description { get; set; }
     public string Note { get; set; }
     [Required]

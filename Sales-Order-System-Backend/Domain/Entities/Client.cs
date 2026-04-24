@@ -5,7 +5,7 @@ namespace Sales_Order_System_Backend.Domain.Entities;
 public class Client
 {
     [Key]
-    public long Id { get; set; }
+    public long ClientId { get; set; }
     [Required]
     public string Name { get; set; }
     public string Address1 { get; set; }

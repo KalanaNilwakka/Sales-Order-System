@@ -5,9 +5,9 @@ namespace Sales_Order_System_Backend.Domain.Entities;
 public class Order
 {
     [Key]
-    public int Id { get; set; }
+    public long OrderId { get; set; }
     [Required]
-    public int ClientId { get; set; }
+    public long ClientId { get; set; }
     [Required]
     public string InvoiceNo { get; set; }
     public DateTime InvoiceDate { get; set; }
@@ -17,5 +17,5 @@ public class Order
     public decimal TotalIncl { get; set; }
     
     public Client Client { get; set; }
-    public List<OrderItem> OrderItems { get; set; }
+    public List<OrderItem> Items { get; set; }
 }
