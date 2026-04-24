@@ -1,6 +1,6 @@
 ﻿namespace Sales_Order_System_Backend.API.DTOs;
 
-public class ClientReadDto
+public class ClientReadDTO
 {
     public int Id { get; set; }
     public string Name { get; set; }
