@@ -11,5 +11,6 @@ public class OrderCreateDTO
     public DateTime InvoiceDate { get; set; }
     public string ReferenceNo { get; set; }
     
+    [Required]
     public List<OrderItemCreateDTO> Items { get; set; }
 }
