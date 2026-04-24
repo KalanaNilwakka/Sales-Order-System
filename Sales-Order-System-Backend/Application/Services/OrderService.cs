@@ -72,7 +72,7 @@ public class OrderService : IOrderService
 
         order.Items = dto.Items.Select(x => new OrderItem
         {
-            ItemId = x.ItemId,
+            ItemCode = x.ItemCode,
             Description = x.Description,
             Note = x.Note,
             Quantity = x.Quantity,
@@ -98,5 +98,15 @@ public class OrderService : IOrderService
         await _repository.UpdateAsync(order);
 
         return _mapper.Map<OrderReadDTO>(order);
+    }
+
+    public async Task<Order?> GetOrderByIdAsync(long id)
+    {
+        var order = await _repository.GetByIdAsync(id);
+        
+        if (order == null)
+            return null;
+
+        return order;
     }
 }
