@@ -9,10 +9,12 @@ namespace Sales_Order_System_Backend.API.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly IOrderService _service;
+    private readonly IReportService _reportService;
     
-    public OrderController(IOrderService service)
+    public OrderController(IOrderService service, IReportService reportService)
     {
         _service = service;
+        _reportService = reportService;
     }
     
     [HttpGet]
@@ -40,11 +42,23 @@ public class OrderController : ControllerBase
         return Created(created.OrderId.ToString(), created);
     }
 
-    // PUT: api/order/5
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, OrderCreateDTO dto)
+    public async Task<ActionResult<OrderReadDTO>> Update(int id, OrderCreateDTO dto)
     {
         var updated = await _service.UpdateAsync(id, dto);
         return Ok(updated);
+    }
+    
+    [HttpGet("{id}/pdf")]
+    public async Task<IActionResult> GetInvoicePdf(long id)
+    {
+        var order = await _service.GetOrderByIdAsync(id);
+
+        if (order == null)
+            return NotFound();
+
+        var pdfBytes = _reportService.GenerateOrderInvoice(order);
+
+        return File(pdfBytes, "application/pdf", $"Invoice_{order.InvoiceNo}.pdf");
     }
 }
