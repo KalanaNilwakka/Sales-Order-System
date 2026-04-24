@@ -11,7 +11,7 @@ public class Item
     [Required]
     public string Description { get; set; }
     [Required]
-    public int Price { get; set; }
+    public decimal Price { get; set; }
     
     public List<OrderItem> OrderItems { get; set; } 
 }
