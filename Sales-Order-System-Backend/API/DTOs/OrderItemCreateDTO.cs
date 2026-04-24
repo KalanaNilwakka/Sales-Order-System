@@ -4,10 +4,9 @@ namespace Sales_Order_System_Backend.API.DTOs;
 
 public class OrderItemCreateDTO
 {
+    public long OrderId { get; set; }
     [Required]
-    public int OrderId { get; set; }
-    [Required]
-    public int ItemId { get; set; }
+    public long ItemId { get; set; }
     public string Description { get; set; }
     public string Note { get; set; }
     [Required]

@@ -23,8 +23,8 @@ public class OrderRepository : IOrderRepository
     {
         return await _dbContext.Orders
             .Include(o => o.Client)
-            .Include(o => o.OrderItems)
-            .FirstOrDefaultAsync(o => o.Id == id);
+            .Include(o => o.Items)
+            .FirstOrDefaultAsync(o => o.OrderId == id);
     }
 
     public async Task AddAsync(Order order)

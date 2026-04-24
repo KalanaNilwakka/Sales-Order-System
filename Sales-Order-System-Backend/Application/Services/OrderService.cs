@@ -37,12 +37,18 @@ public class OrderService : IOrderService
     public async Task<OrderReadDTO> CreateAsync(OrderCreateDTO dto)
     {
         var order = _mapper.Map<Order>(dto);
+        
+        
 
-        foreach (var item in order.OrderItems)
+        foreach (var item in order.Items)
         {
             item.ExclAmount = item.Price * item.Quantity;
             item.TaxAmount = item.ExclAmount * item.TaxRate/100;
             item.InclAmount = item.ExclAmount + item.TaxAmount;
+            
+            order.TotalExcl += item.ExclAmount;
+            order.TotalTax += item.TaxAmount;
+            order.TotalIncl += item.InclAmount;
         }
 
         await _repository.AddAsync(order);
@@ -62,9 +68,9 @@ public class OrderService : IOrderService
         order.InvoiceDate = dto.InvoiceDate;
         order.ReferenceNo = dto.ReferenceNo;
 
-        order.OrderItems.Clear();
+        order.Items.Clear();
 
-        order.OrderItems = dto.Items.Select(x => new OrderItem
+        order.Items = dto.Items.Select(x => new OrderItem
         {
             ItemId = x.ItemId,
             Description = x.Description,
@@ -78,7 +84,7 @@ public class OrderService : IOrderService
         order.TotalTax = 0;
         order.TotalIncl = 0;
 
-        foreach (var item in order.OrderItems)
+        foreach (var item in order.Items)
         {
             item.ExclAmount = item.Price * item.Quantity;
             item.TaxAmount = item.ExclAmount * item.TaxRate/100;

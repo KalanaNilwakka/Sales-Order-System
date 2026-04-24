@@ -2,8 +2,8 @@
 
 public class OrderReadDTO
 {
-    public int Id { get; set; }
-    public int ClientId { get; set; }
+    public long OrderId { get; set; }
+    public long ClientId { get; set; }
     public string InvoiceNo { get; set; }
     public DateTime InvoiceDate { get; set; }
     public string ReferenceNo { get; set; }
