@@ -4,34 +4,31 @@ using Sales_Order_System_Backend.API.DTOs;
 using Sales_Order_System_Backend.Application.Interfaces;
 using Sales_Order_System_Backend.Domain.Entities;
 using Sales_Order_System_Backend.Infrastructure.Data;
+using Sales_Order_System_Backend.Infrastructure.Repositories.Implementations;
 
 namespace Sales_Order_System_Backend.Application.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly AppDbContext _dbContext;
+    private readonly OrderRepository _repository;
     private readonly IMapper _mapper;
 
-    public OrderService(AppDbContext dbContext, IMapper mapper)
+    public OrderService(OrderRepository repository, IMapper mapper)
     {
-        _dbContext = dbContext;
+        _repository = repository;
         _mapper = mapper;
     }
     
     public async Task<List<OrderReadDTO>> GetAllAsync()
     {
-        var orders = await _dbContext.Orders
-            .ToListAsync();
+        var orders = await _repository.GetAllAsync();
         
         return _mapper.Map<List<OrderReadDTO>>(orders);
     }
 
     public async Task<OrderReadDTO> GetByIdAsync(int id)
     {
-        var order = await  _dbContext.Orders
-            .Include(o  => o.OrderItems)
-            .Include(o => o.Client)
-            .FirstOrDefaultAsync(o => o.Id == id);
+        var order = await  _repository.GetByIdAsync(id);
 
         if (order == null)
             throw new KeyNotFoundException($"Order with ID {id} was not found.");
@@ -50,27 +47,24 @@ public class OrderService : IOrderService
             item.InclAmount = item.ExclAmount + item.TaxAmount;
         }
 
-        _dbContext.Orders.Add(order);
-        await _dbContext.SaveChangesAsync();
+        await _repository.AddAsync(order);
 
         return _mapper.Map<OrderReadDTO>(order);
     }
     
     public async Task<OrderReadDTO> UpdateAsync(int id, OrderCreateDTO dto)
     {
-        var order = await _dbContext.Orders
-            .Include(o => o.OrderItems)
-            .FirstOrDefaultAsync(o => o.Id == id);
+        var order = await _repository.GetByIdAsync(id);
 
         if (order == null)
-            return null;
+            throw new KeyNotFoundException($"Order with ID {id} was not found.");
 
         order.ClientId = dto.ClientId;
         order.InvoiceNo = dto.InvoiceNo;
         order.InvoiceDate = dto.InvoiceDate;
         order.ReferenceNo = dto.ReferenceNo;
 
-        _dbContext.OrderItems.RemoveRange(order.OrderItems);
+        order.OrderItems.Clear();
 
         order.OrderItems = dto.Items.Select(x => new OrderItem
         {
@@ -97,7 +91,7 @@ public class OrderService : IOrderService
             order.TotalIncl += item.InclAmount;
         }
 
-        await _dbContext.SaveChangesAsync();
+        await _repository.UpdateAsync(order);
 
         return _mapper.Map<OrderReadDTO>(order);
     }
