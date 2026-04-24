@@ -22,10 +22,10 @@ public class ItemController : ControllerBase
         return Ok(items);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ItemReadDTO>> GetByIdAsync(int id)
+    [HttpGet("{itemCode}")]
+    public async Task<ActionResult<ItemReadDTO>> GetByIdAsync(string itemCode)
     {
-        var item = await _service.GetByIdAsync(id);
+        var item = await _service.GetByIdAsync(itemCode);
         if (item == null)
             return NotFound();
         return Ok(item);

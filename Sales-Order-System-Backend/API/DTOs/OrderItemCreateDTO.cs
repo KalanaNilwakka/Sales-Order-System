@@ -6,7 +6,7 @@ public class OrderItemCreateDTO
 {
     public long OrderId { get; set; }
     [Required]
-    public long ItemId { get; set; }
+    public string ItemCode { get; set; }
     public string Description { get; set; }
     public string Note { get; set; }
     [Required]

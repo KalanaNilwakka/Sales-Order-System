@@ -4,7 +4,7 @@ public class OrderItemReadDTO
 {
     public long OrderItemId { get; set; }
     public long OrderId { get; set; }
-    public long ItemId { get; set; }
+    public string ItemCode { get; set; }
     public string Description { get; set; }
     public string Note { get; set; }
     public int Quantity { get; set; }

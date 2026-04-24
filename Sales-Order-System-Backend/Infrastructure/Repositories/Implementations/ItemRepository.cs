@@ -19,8 +19,8 @@ public class ItemRepository : IItemRepository
         return await _dbContext.Items.ToListAsync();
     }
 
-    public async Task<Item?> GetByIdAsync(int id)
+    public async Task<Item?> GetByIdAsync(string code)
     {
-        return await _dbContext.Items.FirstOrDefaultAsync(i => i.Id == id);
+        return await _dbContext.Items.FirstOrDefaultAsync(i => i.ItemCode == code);
     }
 }

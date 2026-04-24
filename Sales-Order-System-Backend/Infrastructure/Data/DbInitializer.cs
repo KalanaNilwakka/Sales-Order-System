@@ -43,19 +43,19 @@ public static class DbInitializer
             {
                 new Item
                 {
-                    Code = "ITM001",
+                    ItemCode = "ITM001",
                     Description = "Laptop",
                     Price = 250000
                 },
                 new Item
                 {
-                    Code = "ITM002",
+                    ItemCode = "ITM002",
                     Description = "Mouse",
                     Price = 2500
                 },
                 new Item
                 {
-                    Code = "ITM003",
+                    ItemCode = "ITM003",
                     Description = "Keyboard",
                     Price = 5000
                 }

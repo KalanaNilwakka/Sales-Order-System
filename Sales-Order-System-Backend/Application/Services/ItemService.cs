@@ -23,9 +23,9 @@ public class ItemService : IItemService
         return _mapper.Map<List<ItemReadDTO>>(items);
     }
 
-    public async Task<ItemReadDTO?> GetByIdAsync(int id)
+    public async Task<ItemReadDTO?> GetByIdAsync(string code)
     {
-        var item = await _repository.GetByIdAsync(id);
+        var item = await _repository.GetByIdAsync(code);
 
         if (item == null)
             return null;
