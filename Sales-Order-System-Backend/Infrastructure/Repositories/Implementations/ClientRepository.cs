@@ -19,7 +19,7 @@ public class ClientRepository : IClientRepository
         return await _dbContext.Clients.ToListAsync();
     }
 
-    public async Task<Client> GetByIdAsync(int id)
+    public async Task<Client?> GetByIdAsync(int id)
     {
         return await _dbContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
     }

@@ -6,5 +6,5 @@ public interface IItemService
 {
     Task<List<ItemReadDTO>> GetAllAsync();
 
-    Task<ItemReadDTO> GetByIdAsync(int id);
+    Task<ItemReadDTO?> GetByIdAsync(int id);
 }

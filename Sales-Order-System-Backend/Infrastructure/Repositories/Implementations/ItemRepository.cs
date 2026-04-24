@@ -19,7 +19,7 @@ public class ItemRepository : IItemRepository
         return await _dbContext.Items.ToListAsync();
     }
 
-    public async Task<Item> GetByIdAsync(int id)
+    public async Task<Item?> GetByIdAsync(int id)
     {
         return await _dbContext.Items.FirstOrDefaultAsync(i => i.Id == id);
     }

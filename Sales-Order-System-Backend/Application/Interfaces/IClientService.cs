@@ -6,5 +6,5 @@ public interface IClientService
 {
     Task<List<ClientReadDTO>> GetAllAsync();
 
-    Task<ClientReadDTO> GetByIdAsync(int id);
+    Task<ClientReadDTO?> GetByIdAsync(int id);
 }

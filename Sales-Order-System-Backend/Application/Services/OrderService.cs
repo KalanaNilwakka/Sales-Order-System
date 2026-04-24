@@ -1,19 +1,17 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Sales_Order_System_Backend.API.DTOs;
 using Sales_Order_System_Backend.Application.Interfaces;
 using Sales_Order_System_Backend.Domain.Entities;
-using Sales_Order_System_Backend.Infrastructure.Data;
-using Sales_Order_System_Backend.Infrastructure.Repositories.Implementations;
+using Sales_Order_System_Backend.Infrastructure.Repositories.Interfaces;
 
 namespace Sales_Order_System_Backend.Application.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly OrderRepository _repository;
+    private readonly IOrderRepository _repository;
     private readonly IMapper _mapper;
 
-    public OrderService(OrderRepository repository, IMapper mapper)
+    public OrderService(IOrderRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
@@ -26,12 +24,12 @@ public class OrderService : IOrderService
         return _mapper.Map<List<OrderReadDTO>>(orders);
     }
 
-    public async Task<OrderReadDTO> GetByIdAsync(int id)
+    public async Task<OrderReadDTO?> GetByIdAsync(int id)
     {
         var order = await  _repository.GetByIdAsync(id);
 
         if (order == null)
-            throw new KeyNotFoundException($"Order with ID {id} was not found.");
+            return null;
         
         return _mapper.Map<OrderReadDTO>(order);
     }
