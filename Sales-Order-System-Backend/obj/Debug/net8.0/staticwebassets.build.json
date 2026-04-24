@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "WDWJMQd3NpXESMsWAFTlEStBbIfYzrYv6hEf1caIiNs=",
+  "Source": "Sales-Order-System-Backend",
+  "BasePath": "_content/Sales-Order-System-Backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
