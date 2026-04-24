@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Infrastructure;
 using Sales_Order_System_Backend.Application.Interfaces;
 using Sales_Order_System_Backend.Application.Services;
 using Sales_Order_System_Backend.Infrastructure.Data;
@@ -16,6 +17,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
