@@ -77,7 +77,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
   const addNewRow = useCallback(() => {
     const newItem: OrderItem = {
-      orderItemId: 0,
+      orderItemId: generateId(),
       orderId: 0,
       itemCode: '',
       description: '',
@@ -350,7 +350,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
           </thead>
           <tbody>
             {orderItems.map((item) => (
-              <tr key={item.orderId} className="bg-white">
+              <tr key={item.orderItemId} className="bg-white">
                 <td className="border border-gray-400 p-0">
                   <select
                     value={item.itemCode}
@@ -359,7 +359,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   >
                     <option value="">Select</option>
                     {items.map((i) => (
-                      <option key={i.id} value={i.itemCode}>
+                      <option key={i.itemCode} value={i.itemCode}>
                         {i.itemCode}
                       </option>
                     ))}
@@ -373,7 +373,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   >
                     <option value="">Select</option>
                     {items.map((i) => (
-                      <option key={i.id} value={i.description}>
+                      <option key={i.itemCode} value={i.description}>
                         {i.description}
                       </option>
                     ))}
