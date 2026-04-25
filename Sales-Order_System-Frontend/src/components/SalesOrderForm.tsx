@@ -77,8 +77,8 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
   const addNewRow = useCallback(() => {
     const newItem: OrderItem = {
-      orderItemId: generateId(),
-      orderId: generateId(),
+      orderItemId: 0,
+      orderId: 0,
       itemCode: '',
       description: '',
       note: '',
@@ -154,7 +154,8 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
       if (existingOrder) {
         await ordersService.updateOrder(order)
       } else {
-        await ordersService.saveOrder(order)
+        const savedOrder = await ordersService.saveOrder(order)
+        setOrderId(savedOrder.orderId)
       }
       dispatch(addOrderLocally(order))
       setIsSaved(true)
@@ -353,7 +354,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                 <td className="border border-gray-400 p-0">
                   <select
                     value={item.itemCode}
-                    onChange={(e) => updateOrderItem(item.orderId, 'itemCode', e.target.value)}
+                    onChange={(e) => updateOrderItem(item.orderItemId, 'itemCode', e.target.value)}
                     className="w-full px-1 py-1 text-sm border-0 bg-white"
                   >
                     <option value="">Select</option>
@@ -367,7 +368,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                 <td className="border border-gray-400 p-0">
                   <select
                     value={item.description}
-                    onChange={(e) => updateOrderItem(item.orderId, 'description', e.target.value)}
+                    onChange={(e) => updateOrderItem(item.orderItemId, 'description', e.target.value)}
                     className="w-full px-1 py-1 text-sm border-0 bg-white"
                   >
                     <option value="">Select</option>
@@ -382,7 +383,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   <input
                     type="text"
                     value={item.note}
-                    onChange={(e) => updateOrderItem(item.orderId, 'note', e.target.value)}
+                    onChange={(e) => updateOrderItem(item.orderItemId, 'note', e.target.value)}
                     className="w-full px-1 py-1 text-sm border-0"
                   />
                 </td>
@@ -390,7 +391,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   <input
                     type="number"
                     value={item.quantity || ''}
-                    onChange={(e) => updateOrderItem(item.orderId, 'quantity', parseFloat(e.target.value) || 0)}
+                    onChange={(e) => updateOrderItem(item.orderItemId, 'quantity', parseFloat(e.target.value) || 0)}
                     className="w-full px-1 py-1 text-sm border-0"
                   />
                 </td>
@@ -406,7 +407,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   <input
                     type="number"
                     value={item.taxRate || ''}
-                    onChange={(e) => updateOrderItem(item.orderId, 'taxRate', parseFloat(e.target.value) || 0)}
+                    onChange={(e) => updateOrderItem(item.orderItemId, 'taxRate', parseFloat(e.target.value) || 0)}
                     className="w-full px-1 py-1 text-sm border-0"
                     placeholder="%"
                   />
