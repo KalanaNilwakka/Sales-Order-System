@@ -62,6 +62,11 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     }
   }, [existingOrder, customers])
 
+  const validOrderItems = orderItems.filter(item => 
+    items.some(i => i.itemCode === item.itemCode) || 
+    items.some(i => i.description === item.description)
+  )
+
   const handleCustomerChange = (id: number) => {
     const customer = customers.find(c => c.clientId === id)
     setSelectedCustomer(customer || null)
@@ -127,9 +132,9 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     }))
   }
 
-  const totalExcl = orderItems.reduce((sum, item) => sum + item.exclAmount, 0)
-  const totalTax = orderItems.reduce((sum, item) => sum + item.taxAmount, 0)
-  const totalIncl = orderItems.reduce((sum, item) => sum + item.inclAmount, 0)
+  const totalExcl = validOrderItems.reduce((sum, item) => sum + item.exclAmount, 0)
+  const totalTax = validOrderItems.reduce((sum, item) => sum + item.taxAmount, 0)
+  const totalIncl = validOrderItems.reduce((sum, item) => sum + item.inclAmount, 0)
 
   const handleSaveOrder = async () => {
     if (!selectedCustomer) {
@@ -144,7 +149,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
       invoiceDate,
       referenceNo,
       note,
-      items: orderItems,
+      items: validOrderItems,
       totalExcl,
       totalTax,
       totalIncl,
@@ -187,7 +192,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     if (orderItems.length === 0) {
       addNewRow()
     }
-  }, [orderItems.length, addNewRow])
+  }, [orderItems.length])
 
   return (
     <div className="space-y-4">

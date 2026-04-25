@@ -10,6 +10,7 @@ public class OrderCreateDTO
     public string InvoiceNo { get; set; }
     public DateTime InvoiceDate { get; set; }
     public string ReferenceNo { get; set; }
+    public string Note  { get; set; }
     
     [Required]
     public List<OrderItemCreateDTO> Items { get; set; }

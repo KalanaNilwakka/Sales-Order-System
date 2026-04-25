@@ -12,6 +12,7 @@ public class Order
     public string InvoiceNo { get; set; }
     public DateTime InvoiceDate { get; set; }
     public string ReferenceNo { get; set; }
+    public string Note  { get; set; }
     public decimal TotalExcl { get; set; }
     public decimal TotalTax { get; set; }
     public decimal TotalIncl { get; set; }
