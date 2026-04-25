@@ -98,6 +98,18 @@ git clone https://github.com/KalanaNilwakka/Sales-Order-System
 ### 2. Backend Setup
 ```bash
 cd Sales-Order-System-Backend
+
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+dotnet add package AutoMapper
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+dotnet add package QuestPDF
+
+dotnet add package Swashbuckle.AspNetCore
+
 dotnet restore
 ```
 
