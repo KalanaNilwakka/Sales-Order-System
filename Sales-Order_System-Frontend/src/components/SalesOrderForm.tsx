@@ -41,7 +41,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
   useEffect(() => {
     if (existingOrder) {
-      const customer = customers.find(c => c.name === existingOrder.customerName)
+      const customer = customers.find(c => c.clientId === existingOrder.clientId)
       setSelectedCustomer(customer || null)
       setAddress1(existingOrder.address1)
       setAddress2(existingOrder.address2)
@@ -62,8 +62,8 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     }
   }, [existingOrder, customers])
 
-  const handleCustomerChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const customer = customers.find(c => c.id === e.target.value)
+  const handleCustomerChange = (id: number) => {
+    const customer = customers.find(c => c.clientId === id)
     setSelectedCustomer(customer || null)
     if (customer) {
       setAddress1(customer.address1)
@@ -138,7 +138,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
     const order: Order = {
       id: orderId,
-      clientId: selectedCustomer.id,
+      clientId: selectedCustomer.clientId,
       customerName: selectedCustomer.name,
       address1,
       address2,
@@ -228,13 +228,13 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
           <div className="flex items-center gap-2">
             <label className="w-24 text-sm text-gray-700">Customer Name</label>
             <select
-              value={selectedCustomer?.id || ''}
-              onChange={handleCustomerChange}
+              value={selectedCustomer?.clientId || ''}
+              onChange={e => handleCustomerChange(e.target.value ? parseInt(e.target.value) : 0)}
               className="flex-1 border border-gray-400 px-2 py-1 text-sm bg-white"
             >
               <option value="">Select Customer</option>
               {customers.map((customer) => (
-                <option key={customer.id} value={customer.id}>
+                <option key={customer.clientId} value={customer.clientId}>
                   {customer.name}
                 </option>
               ))}
