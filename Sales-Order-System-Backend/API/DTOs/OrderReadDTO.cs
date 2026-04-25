@@ -10,6 +10,7 @@ public class OrderReadDTO
     public decimal TotalExcl { get; set; }
     public decimal TotalTax { get; set; }
     public decimal TotalIncl { get; set; }
+    public string Note { get; set; }
 
     public List<OrderItemReadDTO> Items { get; set; }
 }

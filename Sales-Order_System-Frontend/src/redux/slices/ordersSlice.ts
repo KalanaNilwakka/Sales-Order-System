@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { ordersService } from '../../services/ordersService'
 
 export interface OrderItem {
+  orderItemId: number
   orderId: number
   itemCode: string
   description: string
@@ -17,21 +18,14 @@ export interface OrderItem {
 export interface Order {
   orderId: number
   clientId: number
-  customerName: string
-  address1: string
-  address2: string
-  address3: string
-  suburb: string
-  state: string
-  postCode: string
   invoiceNo: string
   invoiceDate: string
   referenceNo: string
   note: string
-  items: OrderItem[]
   totalExcl: number
   totalTax: number
   totalIncl: number
+  items: OrderItem[]
 }
 
 interface OrdersState {

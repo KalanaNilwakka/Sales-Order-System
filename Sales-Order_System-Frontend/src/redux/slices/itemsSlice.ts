@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { itemsService } from '../../services/itemsService'
 
 export interface Item {
-  id: string
   itemCode: string
   description: string
   price: number
