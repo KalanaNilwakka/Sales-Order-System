@@ -32,7 +32,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
   const [note, setNote] = useState('')
   const [orderItems, setOrderItems] = useState<OrderItem[]>([])
   const [isSaved, setIsSaved] = useState(false)
-  const [orderId, setOrderId] = useState<string>('')
+  const [orderId, setOrderId] = useState<number>()
 
   useEffect(() => {
     dispatch(fetchCustomers())
@@ -43,18 +43,18 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     if (existingOrder) {
       const customer = customers.find(c => c.clientId === existingOrder.clientId)
       setSelectedCustomer(customer || null)
-      setAddress1(existingOrder.address1)
-      setAddress2(existingOrder.address2)
-      setAddress3(existingOrder.address3)
-      setSuburb(existingOrder.suburb)
-      setState(existingOrder.state)
-      setPostCode(existingOrder.postCode)
+      // setAddress1(existingOrder.address1)
+      // setAddress2(existingOrder.address2)
+      // setAddress3(existingOrder.address3)
+      // setSuburb(existingOrder.suburb)
+      // setState(existingOrder.state)
+      // setPostCode(existingOrder.postCode)
       setInvoiceNo(existingOrder.invoiceNo)
       setInvoiceDate(existingOrder.invoiceDate)
       setReferenceNo(existingOrder.referenceNo)
       setNote(existingOrder.note)
       setOrderItems(existingOrder.items)
-      setOrderId(existingOrder.id)
+      setOrderId(existingOrder.orderId)
       setIsSaved(true)
     } else {
       setOrderId(generateId())
@@ -77,7 +77,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
   const addNewRow = useCallback(() => {
     const newItem: OrderItem = {
-      id: generateId(),
+      orderId: generateId(),
       itemCode: '',
       description: '',
       note: '',
@@ -91,9 +91,9 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     setOrderItems(prev => [...prev, newItem])
   }, [])
 
-  const updateOrderItem = (id: string, field: keyof OrderItem, value: string | number) => {
+  const updateOrderItem = (id: number, field: keyof OrderItem, value: string | number) => {
     setOrderItems(prev => prev.map(item => {
-      if (item.id !== id) return item
+      if (item.orderId !== id) return item
 
       const updatedItem = { ...item, [field]: value }
 
@@ -137,15 +137,8 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     }
 
     const order: Order = {
-      id: orderId,
+      orderId: orderId!,
       clientId: selectedCustomer.clientId,
-      customerName: selectedCustomer.name,
-      address1,
-      address2,
-      address3,
-      suburb,
-      state,
-      postCode,
       invoiceNo,
       invoiceDate,
       referenceNo,
@@ -178,7 +171,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     if (!isSaved) return
 
     try {
-      const pdfBlob = await ordersService.printOrder(orderId)
+      const pdfBlob = await ordersService.printOrder(orderId!)
       const url = window.URL.createObjectURL(pdfBlob)
       window.open(url, '_blank')
     } catch (error) {
@@ -355,11 +348,11 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
           </thead>
           <tbody>
             {orderItems.map((item) => (
-              <tr key={item.id} className="bg-white">
+              <tr key={item.orderId} className="bg-white">
                 <td className="border border-gray-400 p-0">
                   <select
                     value={item.itemCode}
-                    onChange={(e) => updateOrderItem(item.id, 'itemCode', e.target.value)}
+                    onChange={(e) => updateOrderItem(item.orderId, 'itemCode', e.target.value)}
                     className="w-full px-1 py-1 text-sm border-0 bg-white"
                   >
                     <option value="">Select</option>
@@ -373,7 +366,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                 <td className="border border-gray-400 p-0">
                   <select
                     value={item.description}
-                    onChange={(e) => updateOrderItem(item.id, 'description', e.target.value)}
+                    onChange={(e) => updateOrderItem(item.orderId, 'description', e.target.value)}
                     className="w-full px-1 py-1 text-sm border-0 bg-white"
                   >
                     <option value="">Select</option>
@@ -388,7 +381,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   <input
                     type="text"
                     value={item.note}
-                    onChange={(e) => updateOrderItem(item.id, 'note', e.target.value)}
+                    onChange={(e) => updateOrderItem(item.orderId, 'note', e.target.value)}
                     className="w-full px-1 py-1 text-sm border-0"
                   />
                 </td>
@@ -396,7 +389,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   <input
                     type="number"
                     value={item.quantity || ''}
-                    onChange={(e) => updateOrderItem(item.id, 'quantity', parseFloat(e.target.value) || 0)}
+                    onChange={(e) => updateOrderItem(item.orderId, 'quantity', parseFloat(e.target.value) || 0)}
                     className="w-full px-1 py-1 text-sm border-0"
                   />
                 </td>
@@ -412,7 +405,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
                   <input
                     type="number"
                     value={item.taxRate || ''}
-                    onChange={(e) => updateOrderItem(item.id, 'taxRate', parseFloat(e.target.value) || 0)}
+                    onChange={(e) => updateOrderItem(item.orderId, 'taxRate', parseFloat(e.target.value) || 0)}
                     className="w-full px-1 py-1 text-sm border-0"
                     placeholder="%"
                   />

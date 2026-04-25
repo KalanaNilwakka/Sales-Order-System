@@ -53,7 +53,7 @@ export const customersService = {
       return response.data
     } catch (error) {
       console.error('Error fetching customer:', error)
-      return mockCustomers.find(c => c.id === id)
+      return mockCustomers.find(c => c.clientId === id)
     }
   },
 }

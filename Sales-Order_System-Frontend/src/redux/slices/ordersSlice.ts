@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { ordersService } from '../../services/ordersService'
 
 export interface OrderItem {
-  id: string
+  orderId: number
   itemCode: string
   description: string
   note: string
@@ -15,15 +15,8 @@ export interface OrderItem {
 }
 
 export interface Order {
-  id: string
+  orderId: number
   clientId: number
-  customerName: string
-  address1: string
-  address2: string
-  address3: string
-  suburb: string
-  state: string
-  postCode: string
   invoiceNo: string
   invoiceDate: string
   referenceNo: string
@@ -74,7 +67,7 @@ const ordersSlice = createSlice({
       state.currentOrder = null
     },
     addOrderLocally: (state, action: PayloadAction<Order>) => {
-      const existingIndex = state.orders.findIndex(o => o.id === action.payload.id)
+      const existingIndex = state.orders.findIndex(o => o.orderId === action.payload.orderId)
       if (existingIndex >= 0) {
         state.orders[existingIndex] = action.payload
       } else {
@@ -100,7 +93,7 @@ const ordersSlice = createSlice({
         state.orders.push(action.payload)
       })
       .addCase(updateOrder.fulfilled, (state, action) => {
-        const index = state.orders.findIndex(o => o.id === action.payload.id)
+        const index = state.orders.findIndex(o => o.orderId === action.payload.orderId)
         if (index !== -1) {
           state.orders[index] = action.payload
         }

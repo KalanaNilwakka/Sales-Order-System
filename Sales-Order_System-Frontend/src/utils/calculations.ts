@@ -14,8 +14,8 @@ export const formatCurrency = (amount: number): string => {
   return amount.toFixed(2)
 }
 
-export const generateId = (): string => {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2)
+export const generateId = (): number => {
+  return Date.now() + Math.floor(Math.random() * 1000)
 }
 
 export const formatDate = (date: Date): string => {

@@ -31,7 +31,7 @@ export const ordersService = {
 
   updateOrder: async (order: Order): Promise<Order> => {
     try {
-      const response = await api.put(`/order/${order.id}`, order)
+      const response = await api.put(`/order/${order.orderId}`, order)
       return response.data
     } catch (error) {
       console.error('Error updating order:', error)
@@ -39,7 +39,7 @@ export const ordersService = {
     }
   },
 
-  printOrder: async (orderId: string): Promise<Blob> => {
+  printOrder: async (orderId: number): Promise<Blob> => {
     const response = await api.get(`/order/${orderId}/pdf`, {
       responseType: 'blob',
     })
