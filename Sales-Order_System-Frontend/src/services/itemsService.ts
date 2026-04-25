@@ -38,7 +38,7 @@ const mockItems: Item[] = [
 export const itemsService = {
   getItems: async (): Promise<Item[]> => {
     try {
-      const response = await api.get('/items')
+      const response = await api.get('/Item')
       return response.data
     } catch (error) {
       console.error('Error fetching items:', error)
@@ -49,7 +49,7 @@ export const itemsService = {
 
   getItemById: async (id: string): Promise<Item | undefined> => {
     try {
-      const response = await api.get(`/items/${id}`)
+      const response = await api.get(`/Item/${id}`)
       return response.data
     } catch (error) {
       console.error('Error fetching item:', error)

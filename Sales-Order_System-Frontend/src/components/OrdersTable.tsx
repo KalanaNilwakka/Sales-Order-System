@@ -48,7 +48,7 @@ export default function OrdersTable({ orders, onRowDoubleClick }: OrdersTablePro
           ) : (
             orders.map((order, idx) => (
               <tr
-                key={order.id}
+                key={order.orderId}
                 className={`cursor-pointer hover:bg-blue-100 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
                 onDoubleClick={() => onRowDoubleClick(order)}
               >

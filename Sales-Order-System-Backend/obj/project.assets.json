@@ -4733,11 +4733,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kalan\\Desktop\\Academics\\Sales-Order-System\\Sales-Order-System-Backend\\Sales-Order-System-Backend.csproj",
+      "projectUniqueName": "C:\\Users\\kalan\\Desktop\\Academics\\SOS\\Sales-Order-System-Backend\\Sales-Order-System-Backend.csproj",
       "projectName": "Sales-Order-System-Backend",
-      "projectPath": "C:\\Users\\kalan\\Desktop\\Academics\\Sales-Order-System\\Sales-Order-System-Backend\\Sales-Order-System-Backend.csproj",
+      "projectPath": "C:\\Users\\kalan\\Desktop\\Academics\\SOS\\Sales-Order-System-Backend\\Sales-Order-System-Backend.csproj",
       "packagesPath": "C:\\Users\\kalan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kalan\\Desktop\\Academics\\Sales-Order-System\\Sales-Order-System-Backend\\obj\\",
+      "outputPath": "C:\\Users\\kalan\\Desktop\\Academics\\SOS\\Sales-Order-System-Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kalan\\AppData\\Roaming\\NuGet\\NuGet.Config"

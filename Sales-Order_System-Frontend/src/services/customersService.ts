@@ -4,7 +4,7 @@ import { Customer } from '../redux/slices/customersSlice'
 // Mock customers data for demo
 const mockCustomers: Customer[] = [
   {
-    id: '1',
+    clientId: 1,
     name: 'ABC Company Ltd',
     address1: '123 Main Street',
     address2: 'Suite 100',
@@ -14,7 +14,7 @@ const mockCustomers: Customer[] = [
     postCode: '2000',
   },
   {
-    id: '2',
+    clientId: 2,
     name: 'XYZ Industries',
     address1: '456 Business Ave',
     address2: 'Level 5',
@@ -24,7 +24,7 @@ const mockCustomers: Customer[] = [
     postCode: '3000',
   },
   {
-    id: '3',
+    clientId: 3,
     name: 'Tech Solutions Pty',
     address1: '789 Tech Park',
     address2: '',
@@ -38,7 +38,7 @@ const mockCustomers: Customer[] = [
 export const customersService = {
   getCustomers: async (): Promise<Customer[]> => {
     try {
-      const response = await api.get('/customers')
+      const response = await api.get('/client')
       return response.data
     } catch (error) {
       console.error('Error fetching customers:', error)
@@ -47,13 +47,13 @@ export const customersService = {
     }
   },
 
-  getCustomerById: async (id: string): Promise<Customer | undefined> => {
+  getCustomerById: async (id: number): Promise<Customer | undefined> => {
     try {
-      const response = await api.get(`/customers/${id}`)
+      const response = await api.get(`/client/${id}`)
       return response.data
     } catch (error) {
       console.error('Error fetching customer:', error)
-      return mockCustomers.find(c => c.id === id)
+      return mockCustomers.find(c => c.clientId === id)
     }
   },
 }

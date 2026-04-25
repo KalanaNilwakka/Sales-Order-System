@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { customersService } from '../../services/customersService'
 
 export interface Customer {
-  id: string
+  clientId: number
   name: string
   address1: string
   address2: string
