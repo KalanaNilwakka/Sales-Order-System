@@ -17,6 +17,13 @@ export interface OrderItem {
 export interface Order {
   orderId: number
   clientId: number
+  customerName: string
+  address1: string
+  address2: string
+  address3: string
+  suburb: string
+  state: string
+  postCode: string
   invoiceNo: string
   invoiceDate: string
   referenceNo: string

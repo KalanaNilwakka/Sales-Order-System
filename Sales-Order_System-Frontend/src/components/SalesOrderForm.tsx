@@ -43,12 +43,12 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     if (existingOrder) {
       const customer = customers.find(c => c.clientId === existingOrder.clientId)
       setSelectedCustomer(customer || null)
-      // setAddress1(existingOrder.address1)
-      // setAddress2(existingOrder.address2)
-      // setAddress3(existingOrder.address3)
-      // setSuburb(existingOrder.suburb)
-      // setState(existingOrder.state)
-      // setPostCode(existingOrder.postCode)
+      setAddress1(customer?.address1 || '')
+      setAddress2(customer?.address2 || '')
+      setAddress3(customer?.address3 || '')
+      setSuburb(customer?.suburb || '')
+      setState(customer?.state || '')
+      setPostCode(customer?.postCode || '')
       setInvoiceNo(existingOrder.invoiceNo)
       setInvoiceDate(existingOrder.invoiceDate)
       setReferenceNo(existingOrder.referenceNo)
@@ -139,6 +139,13 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     const order: Order = {
       orderId: orderId!,
       clientId: selectedCustomer.clientId,
+      customerName: selectedCustomer.name,
+      address1: selectedCustomer.address1,
+      address2: selectedCustomer.address2,
+      address3: selectedCustomer.address3,
+      suburb: selectedCustomer.suburb,
+      state: selectedCustomer.state,
+      postCode: selectedCustomer.postCode,
       invoiceNo,
       invoiceDate,
       referenceNo,
