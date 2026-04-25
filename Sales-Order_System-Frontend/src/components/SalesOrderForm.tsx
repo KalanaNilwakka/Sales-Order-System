@@ -77,6 +77,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
   const addNewRow = useCallback(() => {
     const newItem: OrderItem = {
+      orderItemId: generateId(),
       orderId: generateId(),
       itemCode: '',
       description: '',
@@ -93,7 +94,7 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
 
   const updateOrderItem = (id: number, field: keyof OrderItem, value: string | number) => {
     setOrderItems(prev => prev.map(item => {
-      if (item.orderId !== id) return item
+      if (item.orderItemId !== id) return item
 
       const updatedItem = { ...item, [field]: value }
 
@@ -139,13 +140,6 @@ export default function SalesOrderForm({ existingOrder }: SalesOrderFormProps) {
     const order: Order = {
       orderId: orderId!,
       clientId: selectedCustomer.clientId,
-      customerName: selectedCustomer.name,
-      address1: selectedCustomer.address1,
-      address2: selectedCustomer.address2,
-      address3: selectedCustomer.address3,
-      suburb: selectedCustomer.suburb,
-      state: selectedCustomer.state,
-      postCode: selectedCustomer.postCode,
       invoiceNo,
       invoiceDate,
       referenceNo,
